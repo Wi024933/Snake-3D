@@ -376,6 +376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 224155235}
+  moveSpeed: 1
 --- !u!65 &1661069248
 BoxCollider:
   m_ObjectHideFlags: 0

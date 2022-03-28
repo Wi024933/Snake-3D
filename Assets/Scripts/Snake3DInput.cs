@@ -783,6 +783,30 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""X Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""b44ad0eb-1a21-4fcb-8d02-2351593d471b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Y Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""46d848bc-41f0-49de-91ff-033e48848277"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Z Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""6dbfcee3-7091-4d61-8994-ba4d500ff978"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -790,12 +814,111 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
                     ""name"": """",
                     ""id"": ""b03b8c72-1344-49bb-afc7-05bf6c565418"",
                     ""path"": ""<Keyboard>/f"",
-                    ""interactions"": ""Press"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Spawn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""X Movement"",
+                    ""id"": ""9360e7ea-fb4e-4c10-b1ba-cb5118bb1c9a"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""X Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""78715d0c-e1c1-4b33-bde0-f89101d0ce71"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""X Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""cd6fe9cd-21fb-4c47-b686-26321306d9d6"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""X Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Y Movement"",
+                    ""id"": ""e6832fd1-953c-4842-b2c8-095712224ad3"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Y Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""ac871a00-af63-490c-b806-5f0bbab1e80f"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Y Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""6e907125-26c3-421f-b375-b58976eebdd1"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Y Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""Z Movement"",
+                    ""id"": ""4495cc62-07aa-4065-a3dd-35ef7b481eec"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Z Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""d736a88a-f8f1-4d18-b2e2-7883e3952f68"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Z Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""14eae590-db96-465e-b559-afba69461e58"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Z Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -883,6 +1006,9 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
         // Snake
         m_Snake = asset.FindActionMap("Snake", throwIfNotFound: true);
         m_Snake_Spawn = m_Snake.FindAction("Spawn", throwIfNotFound: true);
+        m_Snake_XMovement = m_Snake.FindAction("X Movement", throwIfNotFound: true);
+        m_Snake_YMovement = m_Snake.FindAction("Y Movement", throwIfNotFound: true);
+        m_Snake_ZMovement = m_Snake.FindAction("Z Movement", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1087,11 +1213,17 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_Snake;
     private ISnakeActions m_SnakeActionsCallbackInterface;
     private readonly InputAction m_Snake_Spawn;
+    private readonly InputAction m_Snake_XMovement;
+    private readonly InputAction m_Snake_YMovement;
+    private readonly InputAction m_Snake_ZMovement;
     public struct SnakeActions
     {
         private @Snake3DInput m_Wrapper;
         public SnakeActions(@Snake3DInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Spawn => m_Wrapper.m_Snake_Spawn;
+        public InputAction @XMovement => m_Wrapper.m_Snake_XMovement;
+        public InputAction @YMovement => m_Wrapper.m_Snake_YMovement;
+        public InputAction @ZMovement => m_Wrapper.m_Snake_ZMovement;
         public InputActionMap Get() { return m_Wrapper.m_Snake; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1104,6 +1236,15 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
                 @Spawn.started -= m_Wrapper.m_SnakeActionsCallbackInterface.OnSpawn;
                 @Spawn.performed -= m_Wrapper.m_SnakeActionsCallbackInterface.OnSpawn;
                 @Spawn.canceled -= m_Wrapper.m_SnakeActionsCallbackInterface.OnSpawn;
+                @XMovement.started -= m_Wrapper.m_SnakeActionsCallbackInterface.OnXMovement;
+                @XMovement.performed -= m_Wrapper.m_SnakeActionsCallbackInterface.OnXMovement;
+                @XMovement.canceled -= m_Wrapper.m_SnakeActionsCallbackInterface.OnXMovement;
+                @YMovement.started -= m_Wrapper.m_SnakeActionsCallbackInterface.OnYMovement;
+                @YMovement.performed -= m_Wrapper.m_SnakeActionsCallbackInterface.OnYMovement;
+                @YMovement.canceled -= m_Wrapper.m_SnakeActionsCallbackInterface.OnYMovement;
+                @ZMovement.started -= m_Wrapper.m_SnakeActionsCallbackInterface.OnZMovement;
+                @ZMovement.performed -= m_Wrapper.m_SnakeActionsCallbackInterface.OnZMovement;
+                @ZMovement.canceled -= m_Wrapper.m_SnakeActionsCallbackInterface.OnZMovement;
             }
             m_Wrapper.m_SnakeActionsCallbackInterface = instance;
             if (instance != null)
@@ -1111,6 +1252,15 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
                 @Spawn.started += instance.OnSpawn;
                 @Spawn.performed += instance.OnSpawn;
                 @Spawn.canceled += instance.OnSpawn;
+                @XMovement.started += instance.OnXMovement;
+                @XMovement.performed += instance.OnXMovement;
+                @XMovement.canceled += instance.OnXMovement;
+                @YMovement.started += instance.OnYMovement;
+                @YMovement.performed += instance.OnYMovement;
+                @YMovement.canceled += instance.OnYMovement;
+                @ZMovement.started += instance.OnZMovement;
+                @ZMovement.performed += instance.OnZMovement;
+                @ZMovement.canceled += instance.OnZMovement;
             }
         }
     }
@@ -1182,5 +1332,8 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
     public interface ISnakeActions
     {
         void OnSpawn(InputAction.CallbackContext context);
+        void OnXMovement(InputAction.CallbackContext context);
+        void OnYMovement(InputAction.CallbackContext context);
+        void OnZMovement(InputAction.CallbackContext context);
     }
 }
