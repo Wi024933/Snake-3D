@@ -8,8 +8,6 @@ public class SnakeBehaviour : MonoBehaviour
     private GameObject gameManager;
     [SerializeField]
     private Canvas gameCanvas;
-    [SerializeField]
-    private Camera gameCamera;
     private Snake3DInput snake3DInput;
 
     [SerializeField]
@@ -17,6 +15,10 @@ public class SnakeBehaviour : MonoBehaviour
     private Vector3 moveDirection = new Vector3(0, 0, 1);
     private Vector3 cameraRelativeDirection;
     private Vector3 lastDirection = new Vector3(0,0,0);
+
+    [SerializeField]
+    private Transform segmentPrefab;
+    private List<Transform> segmentList;
 
     private void Awake()
     {
@@ -42,7 +44,8 @@ public class SnakeBehaviour : MonoBehaviour
 
     void Start()
     {
-        
+        segmentList = new List<Transform>();
+        segmentList.Add(this.transform);
     }
 
     void Update()
@@ -74,10 +77,8 @@ public class SnakeBehaviour : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("Exit.");
         if (other.CompareTag("Border"))
         {
-            Debug.Log("Border");
             gameCanvas.GetComponent<UIManager>().LoseScreen();
             Destroy(this.gameObject);
         }
