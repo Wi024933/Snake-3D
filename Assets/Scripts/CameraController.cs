@@ -6,28 +6,34 @@ using UnityEngine.InputSystem;
 public class CameraController : MonoBehaviour
 {
     public Transform cameraPivot;
-    private Snake3DInput snake3DInput;
+    public Transform cameraSideIndicator;
+    private float cameraSpeed = 10f;
+    private float marginOfError = .1f;
+    private bool isRecentlyTurned = false;
 
-    float mouseX;
-
-    private void Awake()
+    private float CalculateTanUnitCircle()
     {
-        snake3DInput = new Snake3DInput();
-    }
-
-    private void OnEnable()
-    {
-        snake3DInput.Snake.MouseX.performed += ctx => mouseX = ctx.ReadValue<float>();
-        snake3DInput.Snake.MouseX.Enable();
-    }
-
-    private void Mouse(InputAction.CallbackContext context)
-    {
-        Debug.Log(context);
+        return Mathf.Abs(Mathf.Tan(Vector3.Angle(Vector3.forward, transform.position) * Mathf.Deg2Rad));
     }
 
     void Update()
     {
-        cameraPivot.Rotate(Vector3.up, mouseX * 0.5f);
+        cameraPivot.Rotate(Vector3.up, cameraSpeed * Time.deltaTime);
+        if (!isRecentlyTurned)
+        {
+            float result = CalculateTanUnitCircle();
+            if (!isRecentlyTurned && result >= 1 - marginOfError && result <= 1 + marginOfError)
+            {
+                cameraSideIndicator.transform.Rotate(Vector3.up, 90f);
+                StartCoroutine(IndicatorTurnDelay());
+            }
+        }
+    }
+
+    private IEnumerator IndicatorTurnDelay()
+    {
+        isRecentlyTurned = true;
+        yield return new WaitForSeconds(3f);
+        isRecentlyTurned = false;
     }
 }

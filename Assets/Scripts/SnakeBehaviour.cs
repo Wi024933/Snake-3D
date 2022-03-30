@@ -8,11 +8,14 @@ public class SnakeBehaviour : MonoBehaviour
     private GameObject gameManager;
     [SerializeField]
     private Canvas gameCanvas;
+    [SerializeField]
+    private Camera gameCamera;
     private Snake3DInput snake3DInput;
 
     [SerializeField]
     private float moveSpeed = 1;
     private Vector3 moveDirection = new Vector3(0, 0, 1);
+    private Vector3 cameraRelativeDirection;
     private Direction lastDirection = Direction.Z;
 
     private void Awake()
@@ -45,7 +48,7 @@ public class SnakeBehaviour : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(moveDirection * moveSpeed * Time.deltaTime, Space.World);
+        transform.Translate(cameraRelativeDirection * moveSpeed * Time.deltaTime, Space.World);
     }
 
     private void Slither(Direction currentDirection, float value)
@@ -66,7 +69,13 @@ public class SnakeBehaviour : MonoBehaviour
                     break;
             }
         }
+        cameraRelativeDirection = gameManager.transform.forward * moveDirection.z + gameManager.transform.right * moveDirection.x;
         lastDirection = currentDirection;
+    }
+
+    private void GetSideWithCamera()
+    {
+
     }
 
     private void OnTriggerExit(Collider other)
@@ -78,6 +87,4 @@ public class SnakeBehaviour : MonoBehaviour
             gameCanvas.GetComponent<UIManager>().LoseScreen();
         }
     }
-
-    private enum Direction {X = 0, Y = 1, Z = 2}
 }
