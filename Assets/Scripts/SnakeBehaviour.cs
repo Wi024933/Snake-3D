@@ -69,7 +69,7 @@ public class SnakeBehaviour : MonoBehaviour
                     break;
             }
         }
-        cameraRelativeDirection = gameManager.transform.forward * moveDirection.z + gameManager.transform.right * moveDirection.x;
+        cameraRelativeDirection = gameManager.transform.forward * moveDirection.z + gameManager.transform.up * moveDirection.y + gameManager.transform.right * moveDirection.x;
         lastDirection = currentDirection;
     }
 
