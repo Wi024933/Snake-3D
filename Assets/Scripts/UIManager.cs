@@ -5,11 +5,18 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    private int score = 0;
+
     [SerializeField]
     private Text LoseText;
+    [SerializeField]
+    private Text ScoreText;
 
-    public delegate void UIEventHandler();
-    public event UIEventHandler UIEvent;
+    public void PointScored()
+    {
+        score++;
+        ScoreText.text = $"Score: {score}";
+    }
 
     public void LoseScreen()
     {

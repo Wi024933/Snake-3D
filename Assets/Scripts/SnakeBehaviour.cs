@@ -16,7 +16,7 @@ public class SnakeBehaviour : MonoBehaviour
     private float moveSpeed = 1;
     private Vector3 moveDirection = new Vector3(0, 0, 1);
     private Vector3 cameraRelativeDirection;
-    private Direction lastDirection = Direction.Z;
+    private Vector3 lastDirection = new Vector3(0,0,0);
 
     private void Awake()
     {
@@ -25,7 +25,6 @@ public class SnakeBehaviour : MonoBehaviour
 
     private void OnEnable()
     {
-        snake3DInput.Snake.Spawn.performed += gameManager.GetComponent<FoodSpawner>().SpawnFood;
         snake3DInput.Snake.XMovement.performed += ctx =>
         {
             Slither(Direction.X, ctx.ReadValue<float>());
@@ -51,12 +50,10 @@ public class SnakeBehaviour : MonoBehaviour
         transform.Translate(cameraRelativeDirection * moveSpeed * Time.deltaTime, Space.World);
     }
 
-    private void Slither(Direction currentDirection, float value)
+    private void Slither(Direction directionAxis, float value)
     {
-        if (currentDirection != lastDirection)
-        {
             moveDirection.Set(0, 0, 0);
-            switch (currentDirection)
+            switch (directionAxis)
             {
                 case Direction.X:
                     moveDirection.x = value;
@@ -68,14 +65,11 @@ public class SnakeBehaviour : MonoBehaviour
                     moveDirection.z = value;
                     break;
             }
+        if (moveDirection != lastDirection * -1)
+        {
+            cameraRelativeDirection = gameManager.transform.forward * moveDirection.z + gameManager.transform.up * moveDirection.y + gameManager.transform.right * moveDirection.x;
+            lastDirection = moveDirection;
         }
-        cameraRelativeDirection = gameManager.transform.forward * moveDirection.z + gameManager.transform.up * moveDirection.y + gameManager.transform.right * moveDirection.x;
-        lastDirection = currentDirection;
-    }
-
-    private void GetSideWithCamera()
-    {
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -85,6 +79,17 @@ public class SnakeBehaviour : MonoBehaviour
         {
             Debug.Log("Border");
             gameCanvas.GetComponent<UIManager>().LoseScreen();
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Food"))
+        {
+            Destroy(other.gameObject);
+            gameCanvas.GetComponent<UIManager>().PointScored();
+            gameManager.GetComponent<FoodSpawner>().SpawnFood();
         }
     }
 }

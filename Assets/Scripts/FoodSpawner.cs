@@ -23,13 +23,13 @@ public class FoodSpawner : MonoBehaviour
         
     }
     
-    public void SpawnFood(InputAction.CallbackContext context)
+    public void SpawnFood()
     {
         Instantiate(foodGameObject, new Vector3(RandomSnakePitPoint(), RandomSnakePitPoint(), RandomSnakePitPoint()), Quaternion.identity);
     }
 
     private int RandomSnakePitPoint()
     {
-        return Random.Range(-snakePitRadius, snakePitRadius);
+        return Random.Range(-snakePitRadius + 1, snakePitRadius - 1);
     }
 }
