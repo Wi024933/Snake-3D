@@ -794,6 +794,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Mouse X",
+                    "type": "PassThrough",
+                    "id": "83ee337c-538c-4e50-b8dd-252d4ccdbcc9",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Mouse Y",
+                    "type": "PassThrough",
+                    "id": "5c3ae0f7-7224-40fe-9138-f5969c0ed44c",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -906,6 +922,28 @@
                     "action": "Z Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "37511668-90d4-4f13-a3ad-456031439292",
+                    "path": "<Mouse>/delta/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Mouse X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a2b443a1-0eee-4dfb-9a92-d931b21e2e3e",
+                    "path": "<Mouse>/delta/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Mouse Y",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

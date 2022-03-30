@@ -6,12 +6,13 @@ public class SnakeBehaviour : MonoBehaviour
 {
     [SerializeField]
     private GameObject gameManager;
+    [SerializeField]
+    private Canvas gameCanvas;
     private Snake3DInput snake3DInput;
 
     [SerializeField]
     private float moveSpeed = 1;
     private Vector3 moveDirection = new Vector3(0, 0, 1);
-    private Direction currentDirection = Direction.Z;
     private Direction lastDirection = Direction.Z;
 
     private void Awake()
@@ -66,7 +67,16 @@ public class SnakeBehaviour : MonoBehaviour
             }
         }
         lastDirection = currentDirection;
-        Debug.Log(moveDirection);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        Debug.Log("Exit.");
+        if (other.CompareTag("Border"))
+        {
+            Debug.Log("Border");
+            gameCanvas.GetComponent<UIManager>().LoseScreen();
+        }
     }
 
     private enum Direction {X = 0, Y = 1, Z = 2}

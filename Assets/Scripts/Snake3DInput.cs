@@ -807,6 +807,22 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Mouse X"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""83ee337c-538c-4e50-b8dd-252d4ccdbcc9"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""Mouse Y"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""5c3ae0f7-7224-40fe-9138-f5969c0ed44c"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -919,6 +935,28 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
                     ""action"": ""Z Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""37511668-90d4-4f13-a3ad-456031439292"",
+                    ""path"": ""<Mouse>/delta/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Mouse X"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a2b443a1-0eee-4dfb-9a92-d931b21e2e3e"",
+                    ""path"": ""<Mouse>/delta/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Mouse Y"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1009,6 +1047,8 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
         m_Snake_XMovement = m_Snake.FindAction("X Movement", throwIfNotFound: true);
         m_Snake_YMovement = m_Snake.FindAction("Y Movement", throwIfNotFound: true);
         m_Snake_ZMovement = m_Snake.FindAction("Z Movement", throwIfNotFound: true);
+        m_Snake_MouseX = m_Snake.FindAction("Mouse X", throwIfNotFound: true);
+        m_Snake_MouseY = m_Snake.FindAction("Mouse Y", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1216,6 +1256,8 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
     private readonly InputAction m_Snake_XMovement;
     private readonly InputAction m_Snake_YMovement;
     private readonly InputAction m_Snake_ZMovement;
+    private readonly InputAction m_Snake_MouseX;
+    private readonly InputAction m_Snake_MouseY;
     public struct SnakeActions
     {
         private @Snake3DInput m_Wrapper;
@@ -1224,6 +1266,8 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
         public InputAction @XMovement => m_Wrapper.m_Snake_XMovement;
         public InputAction @YMovement => m_Wrapper.m_Snake_YMovement;
         public InputAction @ZMovement => m_Wrapper.m_Snake_ZMovement;
+        public InputAction @MouseX => m_Wrapper.m_Snake_MouseX;
+        public InputAction @MouseY => m_Wrapper.m_Snake_MouseY;
         public InputActionMap Get() { return m_Wrapper.m_Snake; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1245,6 +1289,12 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
                 @ZMovement.started -= m_Wrapper.m_SnakeActionsCallbackInterface.OnZMovement;
                 @ZMovement.performed -= m_Wrapper.m_SnakeActionsCallbackInterface.OnZMovement;
                 @ZMovement.canceled -= m_Wrapper.m_SnakeActionsCallbackInterface.OnZMovement;
+                @MouseX.started -= m_Wrapper.m_SnakeActionsCallbackInterface.OnMouseX;
+                @MouseX.performed -= m_Wrapper.m_SnakeActionsCallbackInterface.OnMouseX;
+                @MouseX.canceled -= m_Wrapper.m_SnakeActionsCallbackInterface.OnMouseX;
+                @MouseY.started -= m_Wrapper.m_SnakeActionsCallbackInterface.OnMouseY;
+                @MouseY.performed -= m_Wrapper.m_SnakeActionsCallbackInterface.OnMouseY;
+                @MouseY.canceled -= m_Wrapper.m_SnakeActionsCallbackInterface.OnMouseY;
             }
             m_Wrapper.m_SnakeActionsCallbackInterface = instance;
             if (instance != null)
@@ -1261,6 +1311,12 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
                 @ZMovement.started += instance.OnZMovement;
                 @ZMovement.performed += instance.OnZMovement;
                 @ZMovement.canceled += instance.OnZMovement;
+                @MouseX.started += instance.OnMouseX;
+                @MouseX.performed += instance.OnMouseX;
+                @MouseX.canceled += instance.OnMouseX;
+                @MouseY.started += instance.OnMouseY;
+                @MouseY.performed += instance.OnMouseY;
+                @MouseY.canceled += instance.OnMouseY;
             }
         }
     }
@@ -1335,5 +1391,7 @@ public class @Snake3DInput : IInputActionCollection, IDisposable
         void OnXMovement(InputAction.CallbackContext context);
         void OnYMovement(InputAction.CallbackContext context);
         void OnZMovement(InputAction.CallbackContext context);
+        void OnMouseX(InputAction.CallbackContext context);
+        void OnMouseY(InputAction.CallbackContext context);
     }
 }
