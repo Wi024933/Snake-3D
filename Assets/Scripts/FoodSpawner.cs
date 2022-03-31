@@ -12,15 +12,8 @@ public class FoodSpawner : MonoBehaviour
 
     void Start()
     {
-        //Vector3 lowerSnakePitCorner = new Vector3(-snakePitRadius, -snakePitRadius, -snakePitRadius);
-        //Vector3 upperSnakePitCorner = new Vector3(snakePitRadius, snakePitRadius, snakePitRadius);
 
         Instantiate(foodGameObject, Vector3.zero, Quaternion.identity);
-    }
-
-    void Update()
-    {
-        
     }
     
     public void SpawnFood()

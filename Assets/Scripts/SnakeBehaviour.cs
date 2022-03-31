@@ -16,10 +16,6 @@ public class SnakeBehaviour : MonoBehaviour
     private Vector3 cameraRelativeDirection;
     private Vector3 lastDirection = new Vector3(0,0,0);
 
-    [SerializeField]
-    private Transform segmentPrefab;
-    private List<Transform> segmentList;
-
     private void Awake()
     {
         snake3DInput = new Snake3DInput();
@@ -40,12 +36,6 @@ public class SnakeBehaviour : MonoBehaviour
             Slither(Direction.Z, ctx.ReadValue<float>());
         };
         snake3DInput.Snake.Enable();
-    }
-
-    void Start()
-    {
-        segmentList = new List<Transform>();
-        segmentList.Add(this.transform);
     }
 
     void Update()

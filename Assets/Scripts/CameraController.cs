@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
         return Mathf.Abs(Mathf.Tan(Vector3.Angle(Vector3.forward, transform.position) * Mathf.Deg2Rad));
     }
 
-    void Update()
+    void LateUpdate()
     {
         cameraPivot.Rotate(Vector3.up, cameraSpeed * Time.deltaTime);
         if (!isRecentlyTurned)
